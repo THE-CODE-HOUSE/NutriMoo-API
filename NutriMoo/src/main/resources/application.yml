@@ -1,0 +1,9 @@
+  spring:
+    data:
+      mongodb:
+        uri: mongodb+srv://thecodehouse:senha123@cluster0.ezubh9d.mongodb.net/?retryWrits=true&w=majority
+        database: FazendaABC
+  api:
+    security:
+      token:
+        secret: =${JWT_SECRET:my-secret-key}
