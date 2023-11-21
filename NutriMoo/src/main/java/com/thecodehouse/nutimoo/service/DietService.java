@@ -10,7 +10,4 @@ import java.util.List;
 public interface DietService {
     DietResponse create(DietRequest dietRequest);
     List<DietResponse> getAll();
-    DietResponse getADiet(String stage, String goal);
-
-
 }
