@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CattleServiceImpl implements CattleService{
@@ -60,5 +62,19 @@ public class CattleServiceImpl implements CattleService{
         response.setBirthDate(cattle.getBirthDate());
 
         return response;
+    }
+
+    public void updateCattle(String id, String tag, String stage, String breed, Date birthDate, Double weight){
+        Optional<Cattle> optionalCattle = repository.findById(id);
+
+        if(optionalCattle.isPresent()){
+            Cattle cattle = optionalCattle.get();
+            cattle.setTag(tag);
+            cattle.setStage(stage);
+            cattle.setBreed(breed);
+            cattle.setBirthDate(birthDate);
+            cattle.setWeight(weight);
+            repository.save(cattle);
+        }
     }
 }

@@ -1,5 +1,5 @@
 package com.thecodehouse.nutimoo.service;
-
+/*
 
 import com.thecodehouse.nutimoo.model.diet.DietRequest;
 import com.thecodehouse.nutimoo.model.diet.DietResponse;
@@ -50,3 +50,4 @@ public class DietServiceImpl implements DietService{
 
 
 }
+*/

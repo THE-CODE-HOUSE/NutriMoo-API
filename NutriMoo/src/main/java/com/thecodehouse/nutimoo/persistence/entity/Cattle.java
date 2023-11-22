@@ -21,7 +21,6 @@ public class Cattle {
     private boolean fertile;
     private Date birthDate;
 
-
     /*public Cattle(String tag, String breed, String stage, String gender, double weight, String goal, Status status, boolean pregnant, Date date) {
         this.tag = tag;
         this.breed = breed;
@@ -49,7 +48,6 @@ public class Cattle {
     public Cattle() {
 
     }
-
     public String getId() {
         return id;
     }
