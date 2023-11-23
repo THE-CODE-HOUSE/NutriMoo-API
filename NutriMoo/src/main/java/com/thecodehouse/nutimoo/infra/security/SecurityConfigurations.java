@@ -29,6 +29,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/cattle/all").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/cattle/insert").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/api/cattle/update/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
