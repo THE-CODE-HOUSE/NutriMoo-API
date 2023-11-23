@@ -146,4 +146,15 @@ public class Cattle {
         }
     }
 
+//    @Override
+//    public boolean equals(Object obj){
+//        if(obj==null) return false;
+//        if(this!=obj) return false;
+//        if(obj.getClass()!=this.getClass()) return false;
+//
+//        Cattle cat = (Cattle) obj;
+//        if(this.stage!=cat.stage) return false;
+//
+//        return true;
+//    }
 }

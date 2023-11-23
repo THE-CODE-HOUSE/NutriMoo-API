@@ -20,8 +20,15 @@ public class CattleController {
     private CattleService service;
 
     @PostMapping("/insert")
-    public ResponseEntity<CattleResponse> create(@RequestBody CattleRequest request){
-        return ResponseEntity.ok(service.create(request));
+    public ResponseEntity<Void> create(@RequestBody CattleRequest request){
+        try{
+            service.create(request);
+            return ResponseEntity.ok().build(); // Retorna 200 OK
+        } catch (EmptyResultDataAccessException e){
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Retorna 500 Internal Server Error
+        }
     }
 
     @GetMapping("/all")
@@ -33,12 +40,23 @@ public class CattleController {
     public  ResponseEntity<Void> update(@PathVariable String id, @RequestBody CattleRequest request){
         try {
             service.updateCattle(id, request.getTag(), request.getStage(), request.getBreed(), request.getBirthDate(), request.getWeight());
-            return ResponseEntity.ok().build(); // Retorna 200 OK sem corpo
+            return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.notFound().build(); // Retorna 404 Not Found sem corpo
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Retorna 500 Internal Server Error sem corpo
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteCattle(@PathVariable String id) {
+        try {
+            service.deleteCattle(id);
+            return ResponseEntity.ok().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

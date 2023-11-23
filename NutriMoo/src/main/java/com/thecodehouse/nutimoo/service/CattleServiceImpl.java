@@ -7,6 +7,7 @@ import com.thecodehouse.nutimoo.persistence.repository.CattleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ public class CattleServiceImpl implements CattleService{
     @Autowired
     private CattleRepository repository;
     @Override
-    public CattleResponse create(CattleRequest cattleRequest) {
+    public void create(CattleRequest cattleRequest) {
         Cattle cattle = new Cattle();
         cattle.setTag(cattleRequest.getTag());
         cattle.setStage(cattleRequest.getStage());
@@ -26,16 +27,29 @@ public class CattleServiceImpl implements CattleService{
         cattle.setGender(cattleRequest.getGender());
         cattle.setWeight(cattleRequest.getWeight());
         cattle.setBirthDate(cattleRequest.getBirthDate());
+        cattle.setPregnant(false);
+        if(!cattle.getStage().equals("BEZERRA/NOVILHA")){
+            cattle.setFertile(true);
+        } else{
+            cattle.setFertile(false);
+        }if(!cattle.getStage().equals("VACA")){
+            cattle.setGoal("GANHAR PESO");
+        } else {
+            cattle.setGoal("MANTER PESO");
+        }
 
         Cattle.Status status = new Cattle.Status();
-        status.setHeartRate(Math.random() * (80 - 40) + 40);
-        status.setTemperature(Math.random() * (39.2 - 38.3) + 38.3);
-        status.setActivityLevel("Ativo");
-        status.setFeedConsumptionRate(Math.random() * (15 - 5) + 5);
+        status.setHeartRate(formatDouble(Math.random() * (80 - 40) + 40));
+        status.setTemperature(formatDouble(Math.random() * (39.2 - 38.3) + 38.3));
+        status.setActivityLevel("ATIVO");
+        status.setFeedConsumptionRate(formatDouble(Math.random() * (15 - 5) + 5));
 
         cattle.setStatus(status);
         repository.save(cattle);
-        return createResponse(cattle);
+    }
+    private double formatDouble(double value) {
+        DecimalFormat model = new DecimalFormat("#.##");
+        return Double.parseDouble(model.format(value));
     }
     @Override
     public List<CattleResponse> getAll() {
@@ -76,5 +90,10 @@ public class CattleServiceImpl implements CattleService{
             cattle.setWeight(weight);
             repository.save(cattle);
         }
+    }
+
+    @Override
+    public void deleteCattle(String id) {
+        repository.deleteById(id);
     }
 }
