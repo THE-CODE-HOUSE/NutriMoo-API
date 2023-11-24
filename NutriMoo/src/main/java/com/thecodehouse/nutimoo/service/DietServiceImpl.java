@@ -9,6 +9,7 @@ import com.thecodehouse.nutimoo.persistence.entity.Ingredients;
 import com.thecodehouse.nutimoo.persistence.repository.CattleRepository;
 import com.thecodehouse.nutimoo.persistence.repository.DietRepository;
 import com.thecodehouse.nutimoo.persistence.repository.IngredientsRepository;
+import com.thecodehouse.nutimoo.service.Client.Client;
 
 import ch.qos.logback.core.net.server.Client;
 
@@ -35,8 +36,8 @@ public class DietServiceImpl implements DietService{
         List<Cattle> cattle = cattleRepository.findAllByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal());
         List<Ingredients> ingredients = ingredientsRepository.findAll();
 
-        double em = 6.23;
-        double emIngredient = em/cattle.size();
+        double em = 0;
+        //double emIngredient = em/cattle.size();
         double cms = 0;
         double weight = 0;
 
@@ -44,7 +45,12 @@ public class DietServiceImpl implements DietService{
             weight += cattle.get(i).getWeight();
         }
         weight = weight/cattle.size();
+        try{
+            em  = client.emCalculation(weight);
 
+        }catch(Exception error){
+            
+        }
 
 
 

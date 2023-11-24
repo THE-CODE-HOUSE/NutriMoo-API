@@ -27,7 +27,12 @@ public class Client{
 
   public static final int DEFAULT_PORT = 3000;
 
-  public void emCalculation(double weight){
+  public void connection(){
+    
+  }
+  
+  
+  public double emCalculation(double weight){
 
     Socket connection = null;
     try {
