@@ -1,5 +1,5 @@
 package com.thecodehouse.nutimoo.service;
-/*
+
 
 import com.thecodehouse.nutimoo.model.diet.DietRequest;
 import com.thecodehouse.nutimoo.model.diet.DietResponse;
@@ -9,6 +9,9 @@ import com.thecodehouse.nutimoo.persistence.entity.Ingredients;
 import com.thecodehouse.nutimoo.persistence.repository.CattleRepository;
 import com.thecodehouse.nutimoo.persistence.repository.DietRepository;
 import com.thecodehouse.nutimoo.persistence.repository.IngredientsRepository;
+
+import ch.qos.logback.core.net.server.Client;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,9 @@ public class DietServiceImpl implements DietService{
     private IngredientsRepository ingredientsRepository;
     @Autowired
     private CattleRepository cattleRepository;
+
+    @Autowired
+    private Client client;
 
     @Override
     public DietResponse create(DietRequest dietRequest){
@@ -50,4 +56,3 @@ public class DietServiceImpl implements DietService{
 
 
 }
-*/
