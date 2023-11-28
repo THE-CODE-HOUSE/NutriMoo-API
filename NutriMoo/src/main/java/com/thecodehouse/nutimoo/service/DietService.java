@@ -8,6 +8,7 @@ import com.thecodehouse.nutimoo.model.employees.EmployeesResponse;
 import java.util.List;
 
 public interface DietService {
-    DietResponse create(DietRequest dietRequest);
-    List<DietResponse> getAll();
+//    DietResponse create(DietRequest dietRequest);
+//    List<DietResponse> getAll();
+//    double emTeste(double x);
 }

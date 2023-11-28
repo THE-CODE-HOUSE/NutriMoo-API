@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/api/cattle/all").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/cattle/insert").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/api/cattle/update/{id}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/diet/conta").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

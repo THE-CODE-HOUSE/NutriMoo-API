@@ -3,7 +3,7 @@ package com.thecodehouse.nutimoo.service.Client;
 import java.io.*;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class Teclado
 {
     private static BufferedReader teclado =
