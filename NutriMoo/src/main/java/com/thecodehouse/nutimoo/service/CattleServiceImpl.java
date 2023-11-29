@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.text.DecimalFormatSymbols;
+import java.util.*;
 
 @Service
 public class CattleServiceImpl implements CattleService{
@@ -28,11 +26,8 @@ public class CattleServiceImpl implements CattleService{
         cattle.setWeight(cattleRequest.getWeight());
         cattle.setBirthDate(cattleRequest.getBirthDate());
         cattle.setPregnant(false);
-        if(!cattle.getStage().equals("BEZERRA/NOVILHA")){
-            cattle.setFertile(true);
-        } else{
-            cattle.setFertile(false);
-        }if(!cattle.getStage().equals("VACA")){
+        cattle.setFertile(!cattle.getStage().equals("BEZERRA/NOVILHA")&&!cattle.getStage().equals("BOI"));
+        if(!cattle.getStage().equals("VACA")){
             cattle.setGoal("GANHAR PESO");
         } else {
             cattle.setGoal("MANTER PESO");
@@ -48,9 +43,10 @@ public class CattleServiceImpl implements CattleService{
         repository.save(cattle);
     }
     private double formatDouble(double value) {
-        DecimalFormat model = new DecimalFormat("#.##");
+        DecimalFormat model = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
         return Double.parseDouble(model.format(value));
     }
+
     @Override
     public List<CattleResponse> getAll() {
         List<CattleResponse> responses = new ArrayList<>();
@@ -78,12 +74,11 @@ public class CattleServiceImpl implements CattleService{
         return response;
     }
 
-    public void updateCattle(String id, String tag, String stage, String breed, Date birthDate, Double weight){
-        Optional<Cattle> optionalCattle = repository.findById(id);
+    public void updateCattleByTag(String tag, String stage, String breed, Date birthDate, Double weight) {
+        Optional<Cattle> optionalCattle = repository.findByTag(tag);
 
-        if(optionalCattle.isPresent()){
+        if (optionalCattle.isPresent()) {
             Cattle cattle = optionalCattle.get();
-            cattle.setTag(tag);
             cattle.setStage(stage);
             cattle.setBreed(breed);
             cattle.setBirthDate(birthDate);
@@ -91,9 +86,7 @@ public class CattleServiceImpl implements CattleService{
             repository.save(cattle);
         }
     }
-
-    @Override
-    public void deleteCattle(String id) {
-        repository.deleteById(id);
+    public void deleteCattle(String tag) {
+        repository.deleteByTag(tag);
     }
 }
