@@ -1,6 +1,4 @@
-package com.thecodehouse.nutimoo.service.Client;
-
-import org.springframework.stereotype.Component;
+package com.thecodehouse.nutimoo.client;
 
 import java.io.*;
 import java.net.*;

@@ -1,6 +1,7 @@
 package com.thecodehouse.nutimoo.persistence.entity;
 
 
+import com.thecodehouse.nutimoo.model.diet.Foods;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,11 +20,11 @@ public class Diet  {
     private double protein;
     private double fat;
     private double carbohydrates;
-    private Ingredients[] foods;
+    private Foods[] foods;
 
     public Diet() {
     }
-    public Diet(String id, String stage, String goal, double em, double cms, double protein, double fat, double carbohydrates, Ingredients[] foods) {
+    public Diet(String id, String stage, String goal, double em, double cms, double protein, double fat, double carbohydrates, Foods[] foods) {
         this.id = id;
         this.stage = stage;
         this.goal = goal;
@@ -99,11 +100,11 @@ public class Diet  {
         this.carbohydrates = carbohydrates;
     }
 
-    public Ingredients[] getFoods() {
+    public Foods[] getFoods() {
         return foods;
     }
 
-    public void setFoods(Ingredients[] foods) {
-        this.foods = foods;
-    }
+//    public void setFoods(Foods[] foods) {
+//        this.foods = foods;
+//    }
 }

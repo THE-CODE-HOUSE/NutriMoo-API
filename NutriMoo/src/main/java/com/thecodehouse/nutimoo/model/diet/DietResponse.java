@@ -10,7 +10,7 @@ public class DietResponse {
     private double protein;
     private double fat;
     private double carbohydrates;
-    private Ingredients[] foods;
+    private Foods[] foods;
 
     public String getStage() {
         return stage;
@@ -68,7 +68,7 @@ public class DietResponse {
         this.carbohydrates = carbohydrates;
     }
 
-    public Ingredients[] getFoods() {
+    public Foods[] getFoods() {
         return foods;
     }
 

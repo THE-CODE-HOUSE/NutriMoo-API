@@ -10,13 +10,13 @@ public class Ingredients{
     private String id;
 
     private String nome;
-    private float energy;
-    private float protein;
-    private float fat;
-    private float carbohydrates;
+    private double energy;
+    private double protein;
+    private double fat;
+    private double carbohydrates;
 
-    public Ingredients(String id, String nome, float energy, float protein, float fat, float carbohydrates) {
-        this.id = id;
+    public Ingredients( String nome, double energy, double protein, double fat, double carbohydrates) {
+
         this.nome = nome;
         this.energy = energy;
         this.protein = protein;
@@ -41,7 +41,7 @@ public class Ingredients{
         this.nome = nome;
     }
 
-    public float getEnergy() {
+    public double getEnergy() {
         return energy;
     }
 
@@ -49,7 +49,7 @@ public class Ingredients{
         this.energy = energy;
     }
 
-    public float getProtein() {
+    public double getProtein() {
         return protein;
     }
 
@@ -57,7 +57,7 @@ public class Ingredients{
         this.protein = protein;
     }
 
-    public float getFat() {
+    public double getFat() {
         return fat;
     }
 
@@ -65,7 +65,7 @@ public class Ingredients{
         this.fat = fat;
     }
 
-    public float getCarbohydrates() {
+    public double getCarbohydrates() {
         return carbohydrates;
     }
 
