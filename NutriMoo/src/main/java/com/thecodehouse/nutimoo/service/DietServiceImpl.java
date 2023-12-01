@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class DietServiceImpl implements DietService{
@@ -159,7 +161,21 @@ public class DietServiceImpl implements DietService{
     @Override
     public List<DietResponse> updateDiet(DietRequest dietRequest){
 
-
+        Optional<Diet> optionalDiet = dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal());
+        
+        Diet diet = new Diet();
+        diet = createDiet(dietRequest);
+        if(optionalDiet.isPresent()){
+            Diet dietUpdate = optionalDiet.get();
+            dietUpdate.setCarbohydrates(diet.getCarbohydrates());
+            dietUpdate.setFat(diet.getFat());
+            dietUpdate.setProtein(diet.getProtein());
+            dietUpdate.setGoal(diet.getGoal());
+            dietUpdate.setStage(diet.getStage());
+            dietUpdate.setCms(diet.getCms());
+            dietUpdate.setEm(diet.getEm());
+            
+        }
 
 
 
