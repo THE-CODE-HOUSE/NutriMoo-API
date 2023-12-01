@@ -31,11 +31,54 @@ public class DietServiceImpl implements DietService{
 
     @Autowired
     private Client client;
-    @Override
-    public void create(DietRequest dietRequest){
 
+    @Override
+    public List<DietResponse> create(DietRequest dietRequest){
+
+        Diet diet = new Diet();
+        diet = createDiet(dietRequest);
+       
+        dietRepository.save(diet);
+
+        List<DietResponse> responses = new ArrayList<>() ;
+        responses = getAll();
+
+        return responses;
+        
+    }
+
+    
+    public List<DietResponse> getAll(){
+
+        List<DietResponse> responses = new ArrayList<>() ;
+        List<Diet> diets = dietRepository.findAll();
+
+        if(!diets.isEmpty()){
+            diets.forEach(diet -> responses.add(createResponse(diet)));
+        }
+
+        return responses;
+
+     }
+
+    private DietResponse createResponse(Diet diet) {
+        DietResponse response = new DietResponse();
+
+        response.setProtein(diet.getProtein());
+        response.setFat(diet.getFat());
+        response.setCarbohydrates(diet.getCarbohydrates());
+        response.setGoal(diet.getGoal());
+        response.setStage(diet.getStage());
+        response.setCms(diet.getCms());
+        response.setEm(diet.getEm());
+
+        return response;
+    }
+    
+    private Diet createDiet(DietRequest dietRequest){
         List<Cattle> cattle = cattleRepository.findAllByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal());
         List<Ingredients> ingredients = ingredientsRepository.findAll();
+
         Foods[] foods = new Foods[2];
         Double[] cmsIngredients = new Double[2];
 
@@ -101,8 +144,6 @@ public class DietServiceImpl implements DietService{
             fat += foods[l].getFat();
             protein += foods[l].getProtein();
         }
-
-
         Diet diet = new Diet();
         diet.setStage(dietRequest.getStage());
         diet.setGoal(dietRequest.getGoal());
@@ -112,33 +153,22 @@ public class DietServiceImpl implements DietService{
         diet.setFat(fat);
         diet.setProtein(protein);
 
-        dietRepository.save(diet);
+        return diet;
     }
-
+    
     @Override
-    public List<DietResponse> getAll(){
-        List<DietResponse> responses = new ArrayList<>() ;
-        List<Diet> diets = dietRepository.findAll();
+    public List<DietResponse> updateDiet(DietRequest dietRequest){
 
-        if(!diets.isEmpty()){
-            diets.forEach(diet -> responses.add(createResponse(diet)));
-        }
+
+
+
+
+
+        List<DietResponse> responses = new ArrayList<>() ;
+        responses = getAll();
+
         return responses;
 
-    }
-
-    private DietResponse createResponse(Diet diet) {
-        DietResponse response = new DietResponse();
-
-        response.setProtein(diet.getProtein());
-        response.setFat(diet.getFat());
-        response.setCarbohydrates(diet.getCarbohydrates());
-        response.setGoal(diet.getGoal());
-        response.setStage(diet.getStage());
-        response.setCms(diet.getCms());
-        response.setEm(diet.getEm());
-
-        return response;
     }
 
 }
