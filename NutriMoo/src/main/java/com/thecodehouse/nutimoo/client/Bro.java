@@ -1,5 +1,7 @@
 package com.thecodehouse.nutimoo.client;
 
+import message.Message;
+
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.Semaphore;

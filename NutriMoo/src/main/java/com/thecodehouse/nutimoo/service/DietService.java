@@ -10,7 +10,7 @@ public interface DietService {
     List<DietResponse> create(DietRequest dietRequest);
 
     List<DietResponse> updateDiet(DietRequest dietRequest);
-     
 
 
+    List<DietResponse> getAll();
 }

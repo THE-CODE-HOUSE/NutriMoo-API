@@ -18,10 +18,9 @@ public class DietController {
     private DietService dietService;
 
     @PostMapping("/insert")
-    public ResponseEntity<Void> create(@RequestBody DietRequest request){
+    public ResponseEntity<List<DietResponse>> create(@RequestBody DietRequest request){
         try{
-            dietService.create(request);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(dietService.create(request));
         }catch (EmptyResultDataAccessException e){
             return ResponseEntity.notFound().build(); // Retorna 404 Not Found
         } catch (Exception e) {

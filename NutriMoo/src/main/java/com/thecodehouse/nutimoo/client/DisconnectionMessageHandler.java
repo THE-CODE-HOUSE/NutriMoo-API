@@ -1,6 +1,8 @@
 package com.thecodehouse.nutimoo.client;
 
 
+import message.DisconnectionMessage;
+
 public class DisconnectionMessageHandler extends Thread {
   private Bro server;
   public DisconnectionMessageHandler(Bro server)throws Exception {

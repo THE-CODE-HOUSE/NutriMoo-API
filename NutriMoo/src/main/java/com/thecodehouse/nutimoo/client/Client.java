@@ -1,6 +1,7 @@
 package com.thecodehouse.nutimoo.client;
 import java.net.*;
 
+import message.*;
 import org.springframework.stereotype.Service;
 
 import java.io.*;

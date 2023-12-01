@@ -42,7 +42,7 @@ public class DietServiceImpl implements DietService{
        
         dietRepository.save(diet);
 
-        List<DietResponse> responses = new ArrayList<>() ;
+        List<DietResponse> responses;
         responses = getAll();
 
         return responses;
@@ -73,6 +73,8 @@ public class DietServiceImpl implements DietService{
         response.setStage(diet.getStage());
         response.setCms(diet.getCms());
         response.setEm(diet.getEm());
+        response.setFoods(diet.getFoods());
+
 
         return response;
     }
@@ -98,7 +100,7 @@ public class DietServiceImpl implements DietService{
         weight = weight/cattle.size();
 
         try{
-           double cmsCattle  = client.emCalculation(weight);
+           em  = client.emCalculation(weight);
 
         }catch(Exception error){}
         switch (dietRequest.getGoal()){
@@ -133,7 +135,7 @@ public class DietServiceImpl implements DietService{
                     k++;
                 }
             }else{
-                if(ingredients.get(j).getNome().equals("Ração Comercial para Bovinos (Lactação)")){
+                if(ingredients.get(j).getNome().equals("Ração Comercial para Bovinos Lactacao")){
                     cmsIngredients[k] = emRacao/ingredients.get(j).getEnergy();
                     foods[k] = new Foods(ingredients.get(j).getNome(),cmsIngredients[k]*(ingredients.get(j).getProtein()/100),cmsIngredients[k]*(ingredients.get(j).getFat()/100),cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100),cmsIngredients[k]);
                     k++;
@@ -154,6 +156,7 @@ public class DietServiceImpl implements DietService{
         diet.setCarbohydrates(carbohydrates);
         diet.setFat(fat);
         diet.setProtein(protein);
+        diet.setFoods(foods);
 
         return diet;
     }
@@ -161,7 +164,7 @@ public class DietServiceImpl implements DietService{
     @Override
     public List<DietResponse> updateDiet(DietRequest dietRequest){
 
-        Optional<Diet> optionalDiet = dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal());
+        Optional<Diet> optionalDiet = Optional.ofNullable(dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal()));
         
         Diet diet = new Diet();
         diet = createDiet(dietRequest);
@@ -174,6 +177,7 @@ public class DietServiceImpl implements DietService{
             dietUpdate.setStage(diet.getStage());
             dietUpdate.setCms(diet.getCms());
             dietUpdate.setEm(diet.getEm());
+            dietUpdate.setFoods(diet.getFoods());
             
         }
 

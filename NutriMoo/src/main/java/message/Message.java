@@ -1,4 +1,4 @@
-package com.thecodehouse.nutimoo.client;
+package message;
 
 import java.io.Serializable;
 

@@ -104,7 +104,7 @@ public class Diet  {
         return foods;
     }
 
-//    public void setFoods(Foods[] foods) {
-//        this.foods = foods;
-//    }
+    public void setFoods(Foods[] foods) {
+        this.foods = foods;
+    }
 }

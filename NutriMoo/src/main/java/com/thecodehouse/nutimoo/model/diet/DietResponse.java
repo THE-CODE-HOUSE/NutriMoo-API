@@ -12,6 +12,8 @@ public class DietResponse {
     private double carbohydrates;
     private Foods[] foods;
 
+
+
     public String getStage() {
         return stage;
     }
@@ -72,8 +74,7 @@ public class DietResponse {
         return foods;
     }
 
-//    public void setFoods(Ingredients foods, int indice) {
-//
-//        this.foods[indice] = foods;
-//    }
+    public void setFoods(Foods[] foods) {
+        this.foods = foods;
+    }
 }
