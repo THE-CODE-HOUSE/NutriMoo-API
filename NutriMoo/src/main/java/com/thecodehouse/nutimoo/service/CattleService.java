@@ -9,6 +9,6 @@ import java.util.List;
 public interface CattleService {
     void create(CattleRequest cattleRequest);
     List<CattleResponse> getAll();
-    void updateCattleByTag(String tag, String stage, String breed, Date birthDate, Double weight);
+    void updateCattleByTag(String tag, String stage, Boolean fertile, Boolean pregnant, Double weight, String goalS);
     void deleteCattle(String tag);
 }

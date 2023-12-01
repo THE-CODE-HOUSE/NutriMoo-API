@@ -10,6 +10,7 @@ public class CattleRequest {
     private String breed;
     private String gender;
     private Double weight;
+    private String goal;
     private Cattle.Status status;
     private boolean pregnant;
     private boolean fertile;
@@ -68,5 +69,11 @@ public class CattleRequest {
     }
     public void setFertile(boolean fertile) {
         this.fertile = fertile;
+    }
+    public String getGoal() {
+        return goal;
+    }
+    public void setGoal(String goal) {
+        this.goal = goal;
     }
 }

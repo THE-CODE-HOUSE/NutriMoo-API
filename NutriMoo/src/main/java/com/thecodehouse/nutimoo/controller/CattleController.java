@@ -39,7 +39,7 @@ public class CattleController {
     @PutMapping("/update")
     public  ResponseEntity<Void> update(@RequestBody CattleRequest request){
         try {
-            service.updateCattleByTag(request.getTag(), request.getStage(), request.getBreed(), request.getBirthDate(), request.getWeight());
+            service.updateCattleByTag(request.getTag(), request.getStage(), request.isFertile(), request.isPregnant(), request.getWeight(), request.getGoal());
             return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();

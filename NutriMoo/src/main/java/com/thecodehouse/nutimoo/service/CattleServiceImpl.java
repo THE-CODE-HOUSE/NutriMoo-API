@@ -74,15 +74,16 @@ public class CattleServiceImpl implements CattleService{
         return response;
     }
 
-    public void updateCattleByTag(String tag, String stage, String breed, Date birthDate, Double weight) {
+    public void updateCattleByTag(String tag, String stage, Boolean fertile, Boolean pregnant, Double weight, String goal) {
         Optional<Cattle> optionalCattle = repository.findByTag(tag);
 
         if (optionalCattle.isPresent()) {
             Cattle cattle = optionalCattle.get();
             cattle.setStage(stage);
-            cattle.setBreed(breed);
-            cattle.setBirthDate(birthDate);
+            cattle.setFertile(fertile);
+            cattle.setPregnant(pregnant);
             cattle.setWeight(weight);
+            cattle.setGoal(goal);
             repository.save(cattle);
         }
     }
