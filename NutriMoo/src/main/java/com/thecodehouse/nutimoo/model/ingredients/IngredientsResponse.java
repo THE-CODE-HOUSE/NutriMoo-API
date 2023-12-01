@@ -3,40 +3,40 @@ package com.thecodehouse.nutimoo.model.ingredients;
 public class IngredientsResponse {
 
     private String name;
-    private float energy;
-    private float protein;
-    private float fat;
-    private float carbohydrates;
+    private double energy;
+    private double protein;
+    private double fat;
+    private double carbohydrates;
 
-    public float getEnergy() {
+    public double getEnergy() {
         return energy;
     }
 
-    public void setEnergy(float energy) {
+    public void setEnergy(double energy) {
         this.energy = energy;
     }
 
-    public float getProtein() {
+    public double getProtein() {
         return protein;
     }
 
-    public void setProtein(float protein) {
+    public void setProtein(double protein) {
         this.protein = protein;
     }
 
-    public float getFat() {
+    public double getFat() {
         return fat;
     }
 
-    public void setFat(float fat) {
+    public void setFat(double fat) {
         this.fat = fat;
     }
 
-    public float getCarbohydrates() {
+    public double getCarbohydrates() {
         return carbohydrates;
     }
 
-    public void setCarbohydrates(float carbohydrates) {
+    public void setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
 

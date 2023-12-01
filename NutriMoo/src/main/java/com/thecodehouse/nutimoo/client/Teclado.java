@@ -1,7 +1,6 @@
-package com.thecodehouse.nutimoo.service.Client;
+package com.thecodehouse.nutimoo.client;
 
 import java.io.*;
-import org.springframework.stereotype.Component;
 
 
 public class Teclado

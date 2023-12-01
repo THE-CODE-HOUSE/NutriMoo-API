@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface DietRepository extends MongoRepository<Diet,String> {
-    Diet findAllByStageAndGoal(String stage, String goal);
+    Diet findByStageAndGoal(String stage, String goal);
 }

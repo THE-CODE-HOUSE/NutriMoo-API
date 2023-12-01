@@ -1,7 +1,7 @@
-package com.thecodehouse.nutimoo.service.Client;
+package com.thecodehouse.nutimoo.client;
 
-import org.springframework.stereotype.Component;
 
+import message.DisconnectionMessage;
 
 public class DisconnectionMessageHandler extends Thread {
   private Bro server;

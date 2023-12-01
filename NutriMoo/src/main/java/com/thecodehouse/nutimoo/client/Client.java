@@ -1,16 +1,16 @@
-package com.thecodehouse.nutimoo.service.Client;
+package com.thecodehouse.nutimoo.client;
 import java.net.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import message.*;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 
 
 @Service
-public class Client{
-  private DisconnectionMessageHandler disconnectionMessageHandler = null;
-  private Message message = null;
+public class Client {
+
+
 
 
 
@@ -58,14 +58,15 @@ public class Client{
       System.err.println ("Indique o servidor e a porta corretos!\n");
 
     }
-
+    DisconnectionMessageHandler disconnectionMessageHandler = null;
     try{
           disconnectionMessageHandler = new DisconnectionMessageHandler (server);
       }catch(Exception e){}
 
     disconnectionMessageHandler.start();
     try{
-      server.send(new EmRequest(weight));
+      EmRequest emRequest = new EmRequest(weight);
+      server.send(emRequest);
     }catch(Exception e){
       System.err.println ("Erro de comunicacao com o servidor;");
       System.err.println ("Tente novamente!");
@@ -76,7 +77,7 @@ public class Client{
 
       server.send(new EmResponse());
 
-
+      Message message = null;
       do{
         message = (Message)server.peek();
       }while(!(message instanceof Result));
