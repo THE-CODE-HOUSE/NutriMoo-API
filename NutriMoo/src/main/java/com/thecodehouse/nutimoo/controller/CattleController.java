@@ -36,10 +36,10 @@ public class CattleController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @PutMapping("/update/{id}")
-    public  ResponseEntity<Void> update(@PathVariable String id, @RequestBody CattleRequest request){
+    @PutMapping("/update")
+    public  ResponseEntity<Void> update(@RequestBody CattleRequest request){
         try {
-            service.updateCattle(id, request.getTag(), request.getStage(), request.getBreed(), request.getBirthDate(), request.getWeight());
+            service.updateCattleByTag(request.getTag(), request.getStage(), request.isFertile(), request.isPregnant(), request.getWeight(), request.getGoal());
             return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
@@ -48,10 +48,10 @@ public class CattleController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteCattle(@PathVariable String id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteCattle(@RequestBody CattleRequest request) {
         try {
-            service.deleteCattle(id);
+            service.deleteCattle(request.getTag());
             return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
