@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface CattleRepository extends MongoRepository<Cattle, String> {
     Optional<Cattle> findByTag(String tag);
     void deleteByTag(String tag);
+    List<Cattle> findAllByStageAndGoal(String stage, String goal);
+    boolean existsByTag(String tag);
 }
 
