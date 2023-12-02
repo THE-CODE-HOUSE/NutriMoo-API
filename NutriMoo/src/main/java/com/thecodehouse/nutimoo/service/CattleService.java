@@ -11,4 +11,5 @@ public interface CattleService {
     List<CattleResponse> getAll();
     void updateCattleByTag(String tag, String stage, Boolean fertile, Boolean pregnant, Double weight, String goalS);
     void deleteCattle(String tag);
+    boolean isTagExists(String tag);
 }

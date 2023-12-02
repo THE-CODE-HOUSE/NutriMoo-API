@@ -26,17 +26,17 @@ public class CattleServiceImpl implements CattleService{
         cattle.setWeight(cattleRequest.getWeight());
         cattle.setBirthDate(cattleRequest.getBirthDate());
         cattle.setPregnant(false);
-        cattle.setFertile(!cattle.getStage().equals("BEZERRA/NOVILHA")&&!cattle.getStage().equals("BOI"));
-        if(!cattle.getStage().equals("VACA")){
-            cattle.setGoal("GANHAR PESO");
+        cattle.setFertile(!cattle.getStage().equals("Bezerra/Novilha")&&!cattle.getStage().equals("Boi"));
+        if(!cattle.getStage().equals("Vaca")){
+            cattle.setGoal("Ganhar Peso");
         } else {
-            cattle.setGoal("MANTER PESO");
+            cattle.setGoal("Manter Peso");
         }
 
         Cattle.Status status = new Cattle.Status();
         status.setHeartRate(formatDouble(Math.random() * (80 - 40) + 40));
         status.setTemperature(formatDouble(Math.random() * (39.2 - 38.3) + 38.3));
-        status.setActivityLevel("ATIVO");
+        status.setActivityLevel("Ativo");
         status.setFeedConsumptionRate(formatDouble(Math.random() * (15 - 5) + 5));
 
         cattle.setStatus(status);
@@ -45,6 +45,9 @@ public class CattleServiceImpl implements CattleService{
     private double formatDouble(double value) {
         DecimalFormat model = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
         return Double.parseDouble(model.format(value));
+    }
+    public boolean isTagExists(String tag) {
+        return repository.existsByTag(tag);
     }
 
     @Override

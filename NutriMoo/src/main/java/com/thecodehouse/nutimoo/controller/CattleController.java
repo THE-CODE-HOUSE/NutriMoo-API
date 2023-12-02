@@ -22,6 +22,9 @@ public class CattleController {
     @PostMapping("/insert")
     public ResponseEntity<Void> create(@RequestBody CattleRequest request){
         try{
+            if(service.isTagExists(request.getTag())){
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
             service.create(request);
             return ResponseEntity.ok().build(); // Retorna 200 OK
         } catch (EmptyResultDataAccessException e){
