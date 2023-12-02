@@ -12,5 +12,5 @@ public interface DietService {
     List<DietResponse> updateDiet(DietRequest dietRequest);
 
 
-    List<DietResponse> getAll();
+
 }

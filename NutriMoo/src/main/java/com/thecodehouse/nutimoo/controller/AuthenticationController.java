@@ -29,7 +29,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(),data.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email().toLowerCase(),data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((Employees) auth.getPrincipal());
@@ -42,7 +42,7 @@ public class AuthenticationController {
         if(this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        Employees newEmployee = new Employees(data.name(),data.email(), encryptedPassword,data.department(), data.role());
+        Employees newEmployee = new Employees(data.name(),data.email().toLowerCase(), encryptedPassword,data.department(), data.role());
 
         this.repository.save(newEmployee);
 

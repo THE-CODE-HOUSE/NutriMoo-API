@@ -56,7 +56,7 @@ public class DietServiceImpl implements DietService{
     }
 
     
-    public List<DietResponse> getAll(){
+    private List<DietResponse> getAll(){
 
         List<DietResponse> responses = new ArrayList<>() ;
         List<Diet> diets = dietRepository.findAll();
