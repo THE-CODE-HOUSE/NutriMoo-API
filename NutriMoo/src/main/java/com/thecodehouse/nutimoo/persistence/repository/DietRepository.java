@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface DietRepository extends MongoRepository<Diet,String> {
     Diet findByStageAndGoal(String stage, String goal);
+
 }

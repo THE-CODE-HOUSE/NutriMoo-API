@@ -28,9 +28,19 @@ public class DietController {
         }
     }
 
-
-    @GetMapping("/all")
-    public  ResponseEntity<List<DietResponse>>getAll(){
-        return ResponseEntity.ok(dietService.getAll());
+    @PostMapping("/update")
+    public ResponseEntity<List<DietResponse>> update(@RequestBody DietRequest request){
+        try{
+            return ResponseEntity.ok(dietService.updateDiet(request));
+        }catch (EmptyResultDataAccessException e){
+            return ResponseEntity.notFound().build(); // Retorna 404 Not Found
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Retorna 500 Internal Server Error
+        }
     }
+
+
+
+
+
 }
