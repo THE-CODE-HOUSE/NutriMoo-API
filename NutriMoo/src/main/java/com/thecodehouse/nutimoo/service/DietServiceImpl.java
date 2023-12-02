@@ -17,8 +17,11 @@ import com.thecodehouse.nutimoo.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 
@@ -36,11 +39,14 @@ public class DietServiceImpl implements DietService{
 
     @Override
     public List<DietResponse> create(DietRequest dietRequest){
+        Optional<Diet> dietVerification =  Optional.ofNullable(dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal()));
+        if (!dietVerification.isPresent() ){
+            Diet diet = new Diet();
+            diet = createDiet(dietRequest);
 
-        Diet diet = new Diet();
-        diet = createDiet(dietRequest);
-       
-        dietRepository.save(diet);
+            dietRepository.save(diet);
+        }
+
 
         List<DietResponse> responses;
         responses = getAll();
@@ -104,11 +110,11 @@ public class DietServiceImpl implements DietService{
 
         }catch(Exception error){}
         switch (dietRequest.getGoal()){
-            case "PERDER PESO":
+            case "Perder Peso":
                 em *= 0.8  ;
                 break;
-            case "GANHAR PESO":
-                if (dietRequest.getStage().equals("VACA EM LACTACAO")){
+            case "Ganhar Peso":
+                if (dietRequest.getStage().equals("Vaca em Lactação")){
                     em*= 1.40;
                 }else{
                     em *= 1.2;
@@ -125,33 +131,33 @@ public class DietServiceImpl implements DietService{
         for(int j = 0; j<ingredients.size();j++){
             if(k==0){
                 cmsIngredients[k] = emSilagem/ingredients.get(j).getEnergy();
-                foods[k] = new Foods(ingredients.get(j).getNome(),cmsIngredients[k]*(ingredients.get(j).getProtein()/100),cmsIngredients[k]*(ingredients.get(j).getFat()/100),cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100), cmsIngredients[k]);
+                foods[k] = new Foods(ingredients.get(j).getNome(),formatDouble(cmsIngredients[k]*(ingredients.get(j).getProtein()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getFat()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100)), formatDouble(cmsIngredients[k]));
                 k++;
             }
-            if(dietRequest.getGoal().equals("PERDER PESO") || dietRequest.getGoal().equals("MANTER PESO")){
+            if(dietRequest.getGoal().equals("Perder Peso") || dietRequest.getGoal().equals("Manter Peso")){
                 if(ingredients.get(j).getNome().equals("Ração Comercial")){
                     cmsIngredients[k] = emRacao/ingredients.get(j).getEnergy();
-                    foods[k] = new Foods(ingredients.get(j).getNome(),cmsIngredients[k]*(ingredients.get(j).getProtein()/100),cmsIngredients[k]*(ingredients.get(j).getFat()/100),cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100),cmsIngredients[k]);
+                    foods[k] = new Foods(ingredients.get(j).getNome(),formatDouble(cmsIngredients[k]*(ingredients.get(j).getProtein()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getFat()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100)), formatDouble(cmsIngredients[k]));
                     k++;
                 }
             }else{
                 if(ingredients.get(j).getNome().equals("Ração Comercial para Bovinos Lactacao")){
                     cmsIngredients[k] = emRacao/ingredients.get(j).getEnergy();
-                    foods[k] = new Foods(ingredients.get(j).getNome(),cmsIngredients[k]*(ingredients.get(j).getProtein()/100),cmsIngredients[k]*(ingredients.get(j).getFat()/100),cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100),cmsIngredients[k]);
+                    foods[k] = new Foods(ingredients.get(j).getNome(),formatDouble(cmsIngredients[k]*(ingredients.get(j).getProtein()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getFat()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100)), formatDouble(cmsIngredients[k]));
                     k++;
                 }
             }
         }
         for(int l = 0; l<cmsIngredients.length; l++){
-            cms += cmsIngredients[l];
-            carbohydrates += foods[l].getCarbohydrates();
-            fat += foods[l].getFat();
-            protein += foods[l].getProtein();
+            cms += formatDouble(cmsIngredients[l]);
+            carbohydrates += formatDouble(foods[l].getCarbohydrates());
+            fat += formatDouble(foods[l].getFat());
+            protein += formatDouble(foods[l].getProtein());
         }
         Diet diet = new Diet();
         diet.setStage(dietRequest.getStage());
         diet.setGoal(dietRequest.getGoal());
-        diet.setEm(em);
+        diet.setEm(formatDouble(em));
         diet.setCms(cms);
         diet.setCarbohydrates(carbohydrates);
         diet.setFat(fat);
@@ -178,7 +184,7 @@ public class DietServiceImpl implements DietService{
             dietUpdate.setCms(diet.getCms());
             dietUpdate.setEm(diet.getEm());
             dietUpdate.setFoods(diet.getFoods());
-            
+            dietRepository.save(dietUpdate);
         }
 
 
@@ -190,5 +196,13 @@ public class DietServiceImpl implements DietService{
         return responses;
 
     }
+
+    private double formatDouble(double value) {
+        DecimalFormat model = new DecimalFormat("#.###", DecimalFormatSymbols.getInstance(Locale.US));
+        return Double.parseDouble(model.format(value));
+
+    }
+
+
 
 }
