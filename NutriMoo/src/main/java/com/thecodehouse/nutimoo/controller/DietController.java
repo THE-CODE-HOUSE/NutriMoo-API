@@ -18,7 +18,7 @@ public class DietController {
     private DietService dietService;
 
     @PostMapping("/insert")
-    public ResponseEntity<List<DietResponse>> create(@RequestBody DietRequest request){
+    public ResponseEntity<DietResponse> create(@RequestBody DietRequest request){
         try{
             return ResponseEntity.ok(dietService.create(request));
         }catch (EmptyResultDataAccessException e){
@@ -29,7 +29,7 @@ public class DietController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<List<DietResponse>> update(@RequestBody DietRequest request){
+    public ResponseEntity<DietResponse> update(@RequestBody DietRequest request){
         try{
             return ResponseEntity.ok(dietService.updateDiet(request));
         }catch (EmptyResultDataAccessException e){

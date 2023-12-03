@@ -15,6 +15,7 @@ import com.thecodehouse.nutimoo.client.Client;
 //import ch.qos.logback.core.net.server.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -38,20 +39,32 @@ public class DietServiceImpl implements DietService{
     private Client client;
 
     @Override
-    public List<DietResponse> create(DietRequest dietRequest){
-        Optional<Diet> dietVerification =  Optional.ofNullable(dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal()));
-        if (!dietVerification.isPresent() ){
+    public DietResponse create(DietRequest dietRequest){
+        List<Cattle> cattle = cattleRepository.findAllByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal());
+
+        if(cattle.isEmpty()){
+            throw new EmptyResultDataAccessException("Nenhum resultado encontrado",1);
+        }
+
+        Diet dietVerification =  dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal());
+        if (dietVerification == null){
             Diet diet = new Diet();
             diet = createDiet(dietRequest);
 
             dietRepository.save(diet);
+            DietResponse responses = createResponse(diet);
+
+
+            return responses;
+        }else{
+
+            DietResponse responses = createResponse(dietVerification);
+            return responses;
         }
 
 
-        List<DietResponse> responses;
-        responses = getAll();
 
-        return responses;
+
         
     }
 
@@ -149,26 +162,26 @@ public class DietServiceImpl implements DietService{
             }
         }
         for(int l = 0; l<cmsIngredients.length; l++){
-            cms += formatDouble(cmsIngredients[l]);
-            carbohydrates += formatDouble(foods[l].getCarbohydrates());
-            fat += formatDouble(foods[l].getFat());
-            protein += formatDouble(foods[l].getProtein());
+            cms += cmsIngredients[l];
+            carbohydrates += foods[l].getCarbohydrates();
+            fat += foods[l].getFat();
+            protein += foods[l].getProtein();
         }
         Diet diet = new Diet();
         diet.setStage(dietRequest.getStage());
         diet.setGoal(dietRequest.getGoal());
         diet.setEm(formatDouble(em));
-        diet.setCms(cms);
-        diet.setCarbohydrates(carbohydrates);
-        diet.setFat(fat);
-        diet.setProtein(protein);
+        diet.setCms(formatDouble(cms));
+        diet.setCarbohydrates(formatDouble(carbohydrates));
+        diet.setFat(formatDouble(fat));
+        diet.setProtein(formatDouble(protein));
         diet.setFoods(foods);
 
         return diet;
     }
     
     @Override
-    public List<DietResponse> updateDiet(DietRequest dietRequest){
+    public DietResponse updateDiet(DietRequest dietRequest){
 
         Optional<Diet> optionalDiet = Optional.ofNullable(dietRepository.findByStageAndGoal(dietRequest.getStage(), dietRequest.getGoal()));
         
@@ -185,16 +198,12 @@ public class DietServiceImpl implements DietService{
             dietUpdate.setEm(diet.getEm());
             dietUpdate.setFoods(diet.getFoods());
             dietRepository.save(dietUpdate);
+            DietResponse responses = createResponse(dietUpdate) ;
+
+
+            return responses;
         }
-
-
-
-
-        List<DietResponse> responses = new ArrayList<>() ;
-        responses = getAll();
-
-        return responses;
-
+        throw new EmptyResultDataAccessException("Nenhum resultado encontrado",1);
     }
 
     private double formatDouble(double value) {
