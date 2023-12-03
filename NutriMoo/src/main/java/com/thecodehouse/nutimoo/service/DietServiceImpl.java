@@ -148,13 +148,13 @@ public class DietServiceImpl implements DietService{
                 k++;
             }
             if(dietRequest.getGoal().equals("Perder Peso") || dietRequest.getGoal().equals("Manter Peso")){
-                if(ingredients.get(j).getNome().equals("Ração Comercial")){
+                if(ingredients.get(j).getNome().equals("Ração Normal")){
                     cmsIngredients[k] = emRacao/ingredients.get(j).getEnergy();
                     foods[k] = new Foods(ingredients.get(j).getNome(),formatDouble(cmsIngredients[k]*(ingredients.get(j).getProtein()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getFat()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100)), formatDouble(cmsIngredients[k]));
                     k++;
                 }
             }else{
-                if(ingredients.get(j).getNome().equals("Ração Comercial para Bovinos Lactacao")){
+                if(ingredients.get(j).getNome().equals("Ração Engorda")){
                     cmsIngredients[k] = emRacao/ingredients.get(j).getEnergy();
                     foods[k] = new Foods(ingredients.get(j).getNome(),formatDouble(cmsIngredients[k]*(ingredients.get(j).getProtein()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getFat()/100)),formatDouble(cmsIngredients[k]*(ingredients.get(j).getCarbohydrates()/100)), formatDouble(cmsIngredients[k]));
                     k++;
