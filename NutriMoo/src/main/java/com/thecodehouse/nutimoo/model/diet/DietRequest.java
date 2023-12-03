@@ -1,6 +1,6 @@
 package com.thecodehouse.nutimoo.model.diet;
 
-public class DietRequest {
+public class DietRequest {// objeto que o "front" mandara para a api
     private String stage;
     private String goal;
 

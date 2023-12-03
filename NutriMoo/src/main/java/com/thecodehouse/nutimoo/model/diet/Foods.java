@@ -1,6 +1,6 @@
 package com.thecodehouse.nutimoo.model.diet;
 
-public class Foods {
+public class Foods { // clase que representa os ingredients
     private String nome;
     private double protein;
     private double fat;

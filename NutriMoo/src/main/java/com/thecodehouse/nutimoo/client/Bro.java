@@ -33,8 +33,8 @@ public class Bro {
   public void send(Message x) throws Exception {
     try{
 
-      this.transmissor.writeObject(x);
-      this.transmissor.flush();
+      this.transmissor.writeObject(x); // envia o objeto
+      this.transmissor.flush();        // faz com que seja enviado imediatamente
 
     }catch(IOException e){
       throw new Exception("Erro de transmissao");

@@ -2,7 +2,7 @@ package com.thecodehouse.nutimoo.model.diet;
 
 import com.thecodehouse.nutimoo.persistence.entity.Ingredients;
 
-public class DietResponse {
+public class DietResponse { // objeto que a API ira retornar para o front
     private String stage;
     private String goal;
     private double em;

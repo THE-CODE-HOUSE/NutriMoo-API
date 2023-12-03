@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Collection;
 
 @Document(collection = "Diet" )
-public class Diet  {
+public class Diet  { //entidade que representa a estrutura de como sera salva no Mongo
 
 
     @Id

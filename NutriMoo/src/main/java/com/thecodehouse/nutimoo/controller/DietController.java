@@ -17,7 +17,7 @@ public class DietController {
     @Autowired
     private DietService dietService;
 
-    @PostMapping("/insert")
+    @PostMapping("/insert")// rota que criar uma dieta e retorna DietResponse
     public ResponseEntity<DietResponse> create(@RequestBody DietRequest request){
         try{
             return ResponseEntity.ok(dietService.create(request));
@@ -28,7 +28,7 @@ public class DietController {
         }
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update")// rota que atualiza e retorna uma DietResponse
     public ResponseEntity<DietResponse> update(@RequestBody DietRequest request){
         try{
             return ResponseEntity.ok(dietService.updateDiet(request));
