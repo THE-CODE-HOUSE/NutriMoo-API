@@ -19,7 +19,7 @@ public class CattleController {
     @Autowired
     private CattleService service;
 
-    @PostMapping("/insert")
+    @PostMapping("/insert") // Rota para criar um gado novo no bando de gados, retornando somente um status http
     public ResponseEntity<Void> create(@RequestBody CattleRequest request){
         try{
             if(service.isTagExists(request.getTag())){
@@ -34,12 +34,12 @@ public class CattleController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all") // rota para pegar todos os gados que existem no banco, e retornar uma List do tipo CattleResponse
     public ResponseEntity<List<CattleResponse>> getAll(){
         return ResponseEntity.ok(service.getAll());
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update") // rota para atualizar um gado especifico, retornando somente um status http
     public  ResponseEntity<Void> update(@RequestBody CattleRequest request){
         try {
             service.updateCattleByTag(request.getTag(), request.getStage(), request.isFertile(), request.isPregnant(), request.getWeight(), request.getGoal());
@@ -51,7 +51,7 @@ public class CattleController {
         }
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete") // rota para deletar um gado especifico, retornando somente um status http
     public ResponseEntity<Void> deleteCattle(@RequestBody CattleRequest request) {
         try {
             service.deleteCattle(request.getTag());

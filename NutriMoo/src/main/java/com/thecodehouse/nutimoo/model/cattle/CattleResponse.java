@@ -5,6 +5,8 @@ import com.thecodehouse.nutimoo.persistence.entity.Cattle;
 import java.util.Date;
 
 public class CattleResponse {
+    // Objeto que é enviado para o front
+    // Como essa classe é apenas para receber as requisições do front, não é usado os getters
     private String tag;
     private String breed;
     private String stage;

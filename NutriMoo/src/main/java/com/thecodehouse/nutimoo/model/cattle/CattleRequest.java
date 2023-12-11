@@ -5,6 +5,9 @@ import com.thecodehouse.nutimoo.persistence.entity.Cattle;
 import java.util.Date;
 
 public class CattleRequest {
+    // Classe que é recebida pelo front, os objetos dessa classe nem sempre virão com todos os
+    // atributos, por exemplo usamos a rota de delete, é recebido esse objeto só que com apenas a tag, o resto tudo null
+    // Como essa classe é apenas para receber as requisições do front, não é usado os setters
     private String tag;
     private String stage;
     private String breed;
